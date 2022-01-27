@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "afterhours-b8f4b": {
+      "hosting": {
+        "afterhoursApp": [
+          "afterhours-b8f4b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "afterhours-b8f4b"
+  }
+}

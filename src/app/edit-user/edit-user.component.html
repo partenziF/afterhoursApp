@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Create User</h1>
+<mat-dialog-content [formGroup]="form">
+
+  <div *ngIf="form.controls['Email'].invalid && (form.controls['Email'].dirty || form.controls['Email'].touched)" class="alert alert-danger">
+    <mat-error *ngIf="form.controls['Email'].errors?.['required']">
+      Email is required.
+    </mat-error>
+    <mat-error *ngIf="form.controls['Email'].errors?.['email']">
+      Email is not valid.
+    </mat-error>
+    <mat-error *ngIf="form.controls['Email'].errors?.['serverError']">
+      {{ form.controls['Email'].errors?.['serverError'] }}
+    </mat-error>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput formControlName="Email" placeholder="Ex. info@example.com" [readonly]="(ID != undefined) ? true : false">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Firstname</mat-label>
+    <input matInput formControlName="FirstName">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Lastname</mat-label>
+    <input matInput formControlName="LastName">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nickname</mat-label>
+    <input matInput formControlName="Nickname">
+
+  </mat-form-field>
+
+  <div mat-dialog-actions>    
+    <mat-spinner *ngIf="loading; else button" [diameter]="25"></mat-spinner>
+    <ng-template #button>
+      <button class="mat-raised-button mat-primary" (click)="onSave()" [disabled]="(ID != undefined)? form.invalid : form.pristine || form.invalid">Save</button>
+    </ng-template>
+  </div>
+</mat-dialog-content>
+
+<p>
+  <app-file-upload *ngIf="ID != undefined" [ID]="ID" (stateChanged)="onStateChange($event)"></app-file-upload>
+
+  <img *ngIf="(profile!=undefined); else imgNotFound " src="{{profile.Url}}" width="250" height="250" />
+
+  <ng-template #imgNotFound>
+    <div *ngIf="ID != undefined">Image not found</div>
+  </ng-template>
+</p>
+
+<button mat-raised-button (click)="onClose()" cdkFocusInitial>Close</button>

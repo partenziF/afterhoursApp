@@ -1,0 +1,78 @@
+
+<div *ngIf="((currentUser.ID=='') && (IdToken==''))">
+  <form [formGroup]="form">
+    <div *ngIf="form.controls['Email'].invalid && (form.controls['Email'].dirty || form.controls['Email'].touched)" class="alert alert-danger">
+      <mat-error *ngIf="form.controls['Email'].errors?.['required']">
+        Email is required.
+      </mat-error>
+      <mat-error *ngIf="form.controls['Email'].errors?.['email']">
+        Email is not valid.
+      </mat-error>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="Email" placeholder="Ex. info@example.com">
+    </mat-form-field>
+
+    <p>
+      <mat-spinner *ngIf="loading; else loginButton" [diameter]="25"></mat-spinner>
+      <ng-template #loginButton>
+        <button mat-raised-button (click)="onLogin()" cdkFocusInitial>Login</button>
+      </ng-template>
+    </p>
+  </form>
+
+</div>
+
+<mat-spinner *ngIf="(currentUser.ID=='')&& (IdToken!='')" [diameter]="50"></mat-spinner>
+
+<div *ngIf="(currentUser.ID!='') && (!this.showEditor)">
+  <mat-card class="user-card">
+    <mat-card-header>
+      
+
+
+        <mat-card-title>{{this.currentUser.Nickname}}</mat-card-title>
+        <mat-card-subtitle>{{this.currentUser.FirstName}} {{this.currentUser.LastName}}</mat-card-subtitle>
+        <mat-card-subtitle>{{this.currentUser.Email}}</mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-card-content>
+      
+      <mat-spinner *ngIf="loading; else imageLoaded" [diameter]="25"></mat-spinner>
+      <ng-template #imageLoaded>
+        <img mat-card-lg-image *ngIf="(imageFound); else imgNotFound " src="{{currentProfile?.Url}}" alt="Photo profile" />
+
+        <ng-template #imgNotFound>
+          Image not found
+        </ng-template>
+
+        </ng-template>
+
+</mat-card-content>
+    <mat-card-actions>
+      <div *ngIf="IdToken!=''">
+        <mat-spinner *ngIf="loading; else reloadButton" [diameter]="25"></mat-spinner>
+        <ng-template #reloadButton>
+          <button mat-raised-button (click)="onUserInfo()">
+            <mat-icon aria-hidden="false" aria-label="refresh">refresh</mat-icon>
+          </button>
+          <button mat-raised-button (click)="onShowEditor()" cdkFocusInitial>
+            <mat-icon aria-hidden="false" aria-label="refresh">edit</mat-icon>
+          </button>
+        </ng-template>
+        
+
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
+
+
+
+<app-register *ngIf="(currentUser.ID!='')&& (this.showEditor)" [data]="currentUser" [tokenId]="IdToken" (closeEditor)="onShowCard($event)">
+
+</app-register>

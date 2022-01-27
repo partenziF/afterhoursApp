@@ -1,0 +1,36 @@
+<div id="formuser" [formGroup]="form">
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput formControlName="Email" placeholder="Ex. info@example.com" [readonly]="true">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Firstname</mat-label>
+    <input matInput formControlName="FirstName">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Lastname</mat-label>
+    <input matInput formControlName="LastName">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nickname</mat-label>
+    <input matInput formControlName="Nickname">
+
+  </mat-form-field>
+  <mat-spinner *ngIf="loadingRegister; else button" [diameter]="25"></mat-spinner>
+  <ng-template #button>
+    <button class="mat-raised-button mat-primary" (click)="onRegister()" [disabled]=" form.pristine || form.invalid">Save</button>
+  </ng-template>
+  <button class="mat-raised-button" (click)="onClose()">Close</button>
+
+</div>
+<div id="formprofile">
+  <app-upload-profile [tokenId]="tokenId"></app-upload-profile>
+</div>
