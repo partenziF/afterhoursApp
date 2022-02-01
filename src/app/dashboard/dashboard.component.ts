@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
 
         })
         .catch((error) => {
-          this.errorCode = error.code;
+          
           this.errorMessage = error.message;
           this.loading = false;
           console.log(error.code + ' ' + error.message);
