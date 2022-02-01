@@ -87,15 +87,15 @@ export class DashboardComponent implements OnInit {
         this.currentProfile = p;
         this.imageFound = true;
       }
-      , errorResponse => {
-        if (errorResponse.status == 404) {
-          this.imageFound = false;
-        } else {
-          console.log(errorResponse);
-          this.imageFound = false;
-        }
+        , errorResponse => {
+          if (errorResponse.status == 404) {
+            this.imageFound = false;
+          } else {
+            console.log(errorResponse);
+            this.imageFound = false;
+          }
 
-      }
+        }
 
         , () => this.loading = false)
     }
@@ -122,6 +122,7 @@ export class DashboardComponent implements OnInit {
     this.userService.login(this.form.value).subscribe(loginResponse => {
 
       if (loginResponse == undefined) {
+        this.loading = false;
         return;
       }
       signInWithCustomToken(auth, loginResponse.AuthToken)
@@ -139,7 +140,9 @@ export class DashboardComponent implements OnInit {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          this.loading = false;
           console.log(error.code + ' ' + errorMessage);
+
         });
 
     }, () => this.loading = false);
