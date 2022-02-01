@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
   public formRegister!: FormGroup;
 
   public showEditor: boolean = false;
+  public errorMessage: string = "";
 
   constructor(private fb: FormBuilder, private userService: UserService) {
 
@@ -123,6 +124,7 @@ export class DashboardComponent implements OnInit {
 
       if (loginResponse == undefined) {
         this.loading = false;
+        this.errorMessage = "Login error";
         return;
       }
       signInWithCustomToken(auth, loginResponse.AuthToken)
@@ -138,10 +140,10 @@ export class DashboardComponent implements OnInit {
 
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          this.errorCode = error.code;
+          this.errorMessage = error.message;
           this.loading = false;
-          console.log(error.code + ' ' + errorMessage);
+          console.log(error.code + ' ' + error.message);
 
         });
 

@@ -21,6 +21,9 @@
         <button mat-raised-button (click)="onLogin()" cdkFocusInitial>Login</button>
       </ng-template>
     </p>
+    <p *ngIf="errorMessage!=''" ">
+      {{errorMessage}}
+    </p>
   </form>
 
 </div>
