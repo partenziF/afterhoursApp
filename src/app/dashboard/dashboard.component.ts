@@ -119,6 +119,7 @@ export class DashboardComponent implements OnInit {
 
     this.loading = true;
     this.IdToken = "";
+    this.errorMessage = "";
 
     this.userService.login(this.form.value).subscribe(loginResponse => {
 
