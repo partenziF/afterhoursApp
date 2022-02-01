@@ -20,9 +20,6 @@ export class UserService {
   private actionUsers = 'users';
   
 
-  //private baseURL = 'http://127.0.0.1:8080'; // URL to web api  
-
-
   constructor(private http: HttpClient) { }
 
   private handleError<T>(operation = 'operation', result?: T) {
